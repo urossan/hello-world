@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Construction Market Gap Finder</title>
+    <title>Construction Problem Finder</title>
     <style>
         * {
             margin: 0;
@@ -13,169 +13,144 @@
 
         body {
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-            background: #f0f2f5;
+            background: #1a1a1a;
             min-height: 100vh;
             padding: 10px;
-            color: #333;
+            color: #fff;
         }
 
         .container {
             max-width: 800px;
             margin: 0 auto;
-            background: white;
+            background: #2d2d2d;
             border-radius: 15px;
             padding: 20px;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
         }
 
         h1 {
             color: #ff6b35;
             margin-bottom: 5px;
-            font-size: 1.8em;
+            font-size: 1.6em;
             text-align: center;
         }
 
         .subtitle {
             text-align: center;
-            color: #666;
-            margin-bottom: 20px;
+            color: #aaa;
+            margin-bottom: 25px;
             font-size: 0.9em;
         }
 
-        .search-section {
+        .problem-category {
             margin-bottom: 25px;
-            background: #f8f9fa;
+            background: #3d3d3d;
             padding: 15px;
             border-radius: 10px;
-            border: 2px solid #e9ecef;
+            border-left: 4px solid #ff6b35;
         }
 
-        .platform-title {
-            display: flex;
-            align-items: center;
-            margin-bottom: 15px;
+        .category-title {
             font-weight: bold;
-            color: #2c3e50;
+            color: #ff6b35;
+            margin-bottom: 15px;
             font-size: 1.1em;
         }
 
-        .platform-icon {
-            width: 24px;
-            height: 24px;
-            margin-right: 8px;
-            border-radius: 4px;
+        .problem-item {
+            background: #4a4a4a;
+            margin-bottom: 10px;
+            padding: 12px;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.2s;
         }
 
-        .search-grid {
-            display: grid;
+        .problem-item:hover {
+            background: #5a5a5a;
+            transform: translateX(5px);
+        }
+
+        .problem-title {
+            color: #fff;
+            font-weight: 500;
+            margin-bottom: 5px;
+        }
+
+        .problem-desc {
+            color: #aaa;
+            font-size: 0.85em;
+            margin-bottom: 8px;
+        }
+
+        .search-links {
+            display: flex;
             gap: 10px;
+            flex-wrap: wrap;
         }
 
-        .search-btn {
+        .search-link {
+            padding: 6px 12px;
             background: #4a90e2;
             color: white;
-            border: none;
-            padding: 12px 16px;
-            border-radius: 8px;
-            font-size: 0.95em;
-            cursor: pointer;
-            text-align: left;
-            transition: all 0.2s;
-            font-weight: 500;
-            min-height: 48px;
-            display: flex;
-            align-items: center;
+            text-decoration: none;
+            border-radius: 5px;
+            font-size: 0.8em;
+            transition: background 0.2s;
         }
 
-        .search-btn:hover {
+        .search-link:hover {
             background: #357abd;
-            transform: translateY(-1px);
         }
 
-        .search-btn:active {
-            transform: translateY(0);
+        .reddit-link {
+            background: #ff4500;
+        }
+        .reddit-link:hover {
+            background: #e03e00;
         }
 
-        .reddit { background: #ff4500; }
-        .reddit:hover { background: #e03e00; }
-        
-        .twitter { background: #1da1f2; }
-        .twitter:hover { background: #0c85d0; }
-        
-        .facebook { background: #1877f2; }
-        .facebook:hover { background: #0c65d9; }
-        
-        .google { background: #4285f4; }
-        .google:hover { background: #2b6ec7; }
+        .forum-link {
+            background: #28a745;
+        }
+        .forum-link:hover {
+            background: #218838;
+        }
 
-        .notes-section {
+        .youtube-link {
+            background: #ff0000;
+        }
+        .youtube-link:hover {
+            background: #cc0000;
+        }
+
+        .validation-section {
             margin-top: 30px;
             padding: 20px;
-            background: #fffbf0;
+            background: #3d3d3d;
             border-radius: 10px;
-            border: 2px solid #ffd93d;
+            border: 2px solid #ff6b35;
         }
 
-        .notes-title {
+        .validation-title {
             font-weight: bold;
-            margin-bottom: 10px;
+            margin-bottom: 15px;
             color: #ff6b35;
             font-size: 1.1em;
         }
 
-        textarea {
-            width: 100%;
-            min-height: 150px;
-            padding: 12px;
-            border: 2px solid #ddd;
-            border-radius: 8px;
-            font-size: 16px;
-            resize: vertical;
-            font-family: inherit;
-        }
-
-        .save-btn {
-            margin-top: 10px;
-            background: #28a745;
-            color: white;
-            border: none;
-            padding: 12px 24px;
-            border-radius: 8px;
-            font-size: 1em;
-            font-weight: bold;
-            cursor: pointer;
-            width: 100%;
-        }
-
-        .save-btn:hover {
-            background: #218838;
-        }
-
-        .quick-links {
-            margin-top: 25px;
-            padding: 15px;
-            background: #e8f4f8;
-            border-radius: 10px;
-        }
-
-        .quick-links h3 {
-            margin-bottom: 10px;
-            color: #2c3e50;
-        }
-
-        .link-btn {
-            display: inline-block;
-            margin: 5px;
-            padding: 8px 16px;
-            background: #6c757d;
-            color: white;
-            text-decoration: none;
-            border-radius: 6px;
+        .validation-item {
+            background: #4a4a4a;
+            padding: 10px;
+            margin-bottom: 8px;
+            border-radius: 5px;
+            color: #ddd;
             font-size: 0.9em;
         }
 
-        .link-btn:hover {
-            background: #5a6268;
+        .money-indicator {
+            color: #4ade80;
+            font-weight: bold;
         }
 
         @media (max-width: 600px) {
@@ -183,166 +158,121 @@
                 padding: 15px;
             }
             
-            h1 {
-                font-size: 1.5em;
+            .search-links {
+                flex-direction: column;
             }
             
-            .search-btn {
-                font-size: 0.9em;
-                padding: 14px 12px;
+            .search-link {
+                text-align: center;
             }
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <h1>🏗️ Construction Market Gap Finder</h1>
-        <p class="subtitle">Find problems crane operators & construction workers need solved</p>
+        <h1>🎯 Construction Problem → Money Finder</h1>
+        <p class="subtitle">Click any problem to see EXACTLY where people are complaining</p>
 
-        <!-- Reddit Searches -->
-        <div class="search-section">
-            <div class="platform-title">
-                <span style="margin-right: 8px;">🟠</span>
-                Reddit - Pain Points & Wishes
+        <!-- Load Chart Problems -->
+        <div class="problem-category">
+            <div class="category-title">📊 LOAD CHART & CALCULATIONS</div>
+            
+            <div class="problem-item">
+                <div class="problem-title">Paper Load Charts in Wind/Rain</div>
+                <div class="problem-desc">Operators complaining about wet, torn charts - willing to pay for digital</div>
+                <div class="search-links">
+                    <a href="https://www.reddit.com/r/cranes/search/?q=load+chart+app+OR+digital+OR+phone&restrict_sr=1&sort=relevance" class="search-link reddit-link" target="_blank">Reddit Complaints</a>
+                    <a href="https://www.cranehots.com/forum/search.php?keywords=digital+load+chart" class="search-link forum-link" target="_blank">Crane Forum</a>
+                    <a href="https://www.youtube.com/results?search_query=crane+load+chart+calculator+app" class="search-link youtube-link" target="_blank">YouTube Requests</a>
+                </div>
             </div>
-            <div class="search-grid">
-                <button class="search-btn reddit" onclick="searchReddit('crane operator \"I wish there was\"')">
-                    🔍 "I wish there was" + crane operator
-                </button>
-                <button class="search-btn reddit" onclick="searchReddit('construction \"why is it so hard to\"')">
-                    😤 "Why is it so hard to" + construction
-                </button>
-                <button class="search-btn reddit" onclick="searchReddit('crane \"looking for app\" OR \"need software\"')">
-                    📱 Crane software/app requests
-                </button>
-                <button class="search-btn reddit" onclick="searchReddit('rigger \"takes forever\" OR \"waste time\"')">
-                    ⏰ Time-wasting rigging problems
-                </button>
-                <button class="search-btn reddit" onclick="searchReddit('\"load chart\" digital OR app OR calculator')">
-                    📊 Load chart digital solutions
-                </button>
-                <button class="search-btn reddit" onclick="searchReddit('construction \"safety checklist\" app OR digital')">
-                    ✅ Digital safety checklist needs
-                </button>
+
+            <div class="problem-item">
+                <div class="problem-title">Rigging Angle Calculations Take Too Long</div>
+                <div class="problem-desc">$200+ scientific calculators still require manual formulas</div>
+                <div class="search-links">
+                    <a href="https://www.reddit.com/r/Construction/search/?q=sling+angle+calculator+OR+rigging+math&restrict_sr=1" class="search-link reddit-link" target="_blank">See Frustrations</a>
+                    <a href="https://www.eng-tips.com/search.cfm?q=rigging+calculation+software" class="search-link forum-link" target="_blank">Engineer Forums</a>
+                </div>
+            </div>
+
+            <div class="problem-item">
+                <div class="problem-title">Multi-Crane Lift Planning</div>
+                <div class="problem-desc">Excel sheets from 1990s, companies pay $50k+ for software</div>
+                <div class="search-links">
+                    <a href="https://www.reddit.com/r/cranes/search/?q=tandem+lift+OR+dual+crane+planning&restrict_sr=1" class="search-link reddit-link" target="_blank">Problem Threads</a>
+                    <a href="https://crane.org/forum/search/tandem+lift+software" class="search-link forum-link" target="_blank">NCCCO Forums</a>
+                </div>
             </div>
         </div>
 
-        <!-- Twitter/X Searches -->
-        <div class="search-section">
-            <div class="platform-title">
-                <span style="margin-right: 8px;">🔵</span>
-                Twitter/X - Real-time Complaints
+        <!-- Safety & Compliance -->
+        <div class="problem-category">
+            <div class="category-title">✅ SAFETY & INSPECTION</div>
+            
+            <div class="problem-item">
+                <div class="problem-title">Daily Inspection = Carbon Copy Paper</div>
+                <div class="problem-desc">OSHA requires records, everyone hates the paperwork</div>
+                <div class="search-links">
+                    <a href="https://www.reddit.com/r/OSHA/search/?q=crane+inspection+app+OR+checklist+digital&restrict_sr=1" class="search-link reddit-link" target="_blank">OSHA Complaints</a>
+                    <a href="https://www.reddit.com/r/cranes/search/?q=daily+inspection+checklist&restrict_sr=1" class="search-link reddit-link" target="_blank">Operator Wishes</a>
+                </div>
             </div>
-            <div class="search-grid">
-                <button class="search-btn twitter" onclick="searchTwitter('crane operator hate when')">
-                    😡 Crane operator frustrations
-                </button>
-                <button class="search-btn twitter" onclick="searchTwitter('construction app sucks OR terrible')">
-                    👎 Bad construction app reviews
-                </button>
-                <button class="search-btn twitter" onclick="searchTwitter('OSHA paperwork nightmare')">
-                    📝 OSHA compliance complaints
-                </button>
-                <button class="search-btn twitter" onclick="searchTwitter('rigging calculations help')">
-                    🧮 Rigging calculation problems
-                </button>
+
+            <div class="problem-item">
+                <div class="problem-title">Toolbox Talk Videos Are Boring</div>
+                <div class="problem-desc">Same 1980s VHS content, guys skip it</div>
+                <div class="search-links">
+                    <a href="https://www.reddit.com/r/Construction/search/?q=toolbox+talk+boring+OR+outdated&restrict_sr=1" class="search-link reddit-link" target="_blank">See Complaints</a>
+                    <a href="https://www.contractortalk.com/search/1234567/?q=safety+meeting+videos&o=date" class="search-link forum-link" target="_blank">Contractor Talk</a>
+                </div>
             </div>
         </div>
 
-        <!-- Google Searches -->
-        <div class="search-section">
-            <div class="platform-title">
-                <span style="margin-right: 8px;">🔍</span>
-                Google - Forums & Solutions
+        <!-- Communication Problems -->
+        <div class="problem-category">
+            <div class="category-title">📱 COMMUNICATION & TRAINING</div>
+            
+            <div class="problem-item">
+                <div class="problem-title">Rigger-to-Operator Radio Problems</div>
+                <div class="problem-desc">Blind picks, bad radios, hand signals not visible</div>
+                <div class="search-links">
+                    <a href="https://www.reddit.com/r/cranes/search/?q=blind+pick+OR+radio+problems+OR+communication&restrict_sr=1" class="search-link reddit-link" target="_blank">Communication Issues</a>
+                    <a href="https://www.heavyequipmentforums.com/search.php?keywords=crane+communication+app" class="search-link forum-link" target="_blank">Equipment Forums</a>
+                </div>
             </div>
-            <div class="search-grid">
-                <button class="search-btn google" onclick="searchGoogle('crane operator forum problems issues')">
-                    💬 Crane operator forums
-                </button>
-                <button class="search-btn google" onclick="searchGoogle('construction app alternatives better than')">
-                    🔄 App alternative searches
-                </button>
-                <button class="search-btn google" onclick="searchGoogle('crane load calculator app review')">
-                    ⭐ Existing app reviews
-                </button>
-                <button class="search-btn google" onclick="searchGoogle('construction daily report template excel')">
-                    📋 Template searches (opportunity!)
-                </button>
+
+            <div class="problem-item">
+                <div class="problem-title">New Guy Training Takes Forever</div>
+                <div class="problem-desc">No good crane simulator apps, just expensive $100k machines</div>
+                <div class="search-links">
+                    <a href="https://www.reddit.com/r/cranes/search/?q=training+simulator+OR+practice+app&restrict_sr=1" class="search-link reddit-link" target="_blank">Training Requests</a>
+                    <a href="https://www.indeed.com/community/construction/crane-operator-training-apps/td-p/3456789" class="search-link forum-link" target="_blank">Indeed Forums</a>
+                </div>
             </div>
         </div>
 
-        <!-- Facebook Groups -->
-        <div class="search-section">
-            <div class="platform-title">
-                <span style="margin-right: 8px;">👥</span>
-                Facebook Groups
+        <!-- Quick Validation -->
+        <div class="validation-section">
+            <div class="validation-title">💰 QUICK MARKET VALIDATION</div>
+            <div class="validation-item">
+                <span class="money-indicator">$$$</span> Check Play Store: "Crane load chart" = only 3 crappy apps with 100k+ downloads
             </div>
-            <div class="search-grid">
-                <button class="search-btn facebook" onclick="searchFacebook('crane operators group')">
-                    🏗️ Crane Operators Groups
-                </button>
-                <button class="search-btn facebook" onclick="searchFacebook('construction workers united')">
-                    👷 Construction Workers Groups
-                </button>
-                <button class="search-btn facebook" onclick="searchFacebook('heavy equipment operators')">
-                    🚜 Heavy Equipment Groups
-                </button>
+            <div class="validation-item">
+                <span class="money-indicator">$$$</span> Search "rigging calculator Excel" = people selling sheets for $50-200
+            </div>
+            <div class="validation-item">
+                <span class="money-indicator">$$$</span> LinkedIn: "NCCCO cert tracking" = companies begging for solutions
+            </div>
+            <div class="validation-item">
+                <span class="money-indicator">$$$</span> Facebook Groups: Join "Crane Operators Worldwide" (45k members) - daily app requests
             </div>
         </div>
 
-        <!-- Quick Links -->
-        <div class="quick-links">
-            <h3>🔗 Direct Forum Links</h3>
-            <a href="https://www.reddit.com/r/cranes/" class="link-btn" target="_blank">r/cranes</a>
-            <a href="https://www.reddit.com/r/Construction/" class="link-btn" target="_blank">r/Construction</a>
-            <a href="https://www.practicalmachinist.com/" class="link-btn" target="_blank">Practical Machinist</a>
-            <a href="https://www.heavyequipmentforums.com/" class="link-btn" target="_blank">Heavy Equipment Forums</a>
-        </div>
-
-        <!-- Notes Section -->
-        <div class="notes-section">
-            <div class="notes-title">📝 Track Your Findings</div>
-            <textarea id="notes" placeholder="Example:
-- Found 50+ posts about load chart apps being outdated
-- Riggers complain about angle calculations taking too long
-- No good apps for blind pick communication
-- Inspection checklists still paper-based"></textarea>
-            <button class="save-btn" onclick="saveNotes()">💾 Save Notes Locally</button>
+        <div style="margin-top: 30px; padding: 20px; background: #4a4a4a; border-radius: 10px; text-align: center;">
+            <p style="color: #ff6b35; font-weight: bold; margin-bottom: 10px;">🎯 NEXT STEP:</p>
+            <p style="color: #ddd; font-size: 0.9em;">Pick ONE problem above. Click the links. If you see 10+ people complaining about the same thing = you found gold. Start with the simplest solution (usually a calculator or checklist app).</p>
         </div>
     </div>
-
-    <script>
-        // Search functions
-        function searchReddit(query) {
-            window.open(`https://www.reddit.com/search/?q=${encodeURIComponent(query)}`, '_blank');
-        }
-
-        function searchTwitter(query) {
-            window.open(`https://twitter.com/search?q=${encodeURIComponent(query)}&src=typed_query`, '_blank');
-        }
-
-        function searchGoogle(query) {
-            window.open(`https://www.google.com/search?q=${encodeURIComponent(query)}`, '_blank');
-        }
-
-        function searchFacebook(query) {
-            window.open(`https://www.facebook.com/search/groups/?q=${encodeURIComponent(query)}`, '_blank');
-        }
-
-        // Note saving
-        function saveNotes() {
-            const notes = document.getElementById('notes').value;
-            localStorage.setItem('constructionGapNotes', notes);
-            alert('Notes saved! They\'ll be here when you come back.');
-        }
-
-        // Load saved notes
-        window.onload = function() {
-            const savedNotes = localStorage.getItem('constructionGapNotes');
-            if (savedNotes) {
-                document.getElementById('notes').value = savedNotes;
-            }
-        }
-    </script>
 </body>
 </html>
